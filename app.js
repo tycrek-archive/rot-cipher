@@ -1,9 +1,13 @@
 var prompt = require('prompt');
+var colors = require('colors/safe');
+
+prompt.message = '';
+prompt.delimiter = colors.reset(':');
 
 var schema = {
 	properties: {
 		word: {
-			description: 'Enter a word to shift',
+			description: colors.reset('Enter a word to shift'),
 			type: 'string',
 			pattern: /[a-zA-Z]/g,
 			message: 'Must use letters only (mixed case)',

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/tycrek/rot-cipher#readme",
   "dependencies": {
+    "colors": "^1.4.0",
     "prompt": "^1.0.0"
   }
 }
