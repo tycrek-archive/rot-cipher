@@ -19,29 +19,30 @@ prompt.get(schema, (err, result) => {
 });
 
 function shift(word) {
-	let letters = word.split('');
+	const U_SHIFT = 64;
+	const L_SHIFT = 96;
+	const U_RANGE = [64, 91];
+	const L_RANGE = [96, 123];
+	const ALPHABET = 26;
 
-	let shifts = [];
-
-	for (let offset = 1; offset <= 26; offset++) {
+	for (let offset = 1; offset <= ALPHABET; offset++) {
 		let temp = [];
-		for (let i = 0; i < letters.length; i++) {
+		for (let i = 0; i < word.length; i++) {
 			let code = word.charCodeAt(i);
 
-			// Check uppercase
 			let upper;
-			if (code > 64 && code < 91) {
-				code -= 64;
+			if (code > U_RANGE[0] && code < U_RANGE[1]) {
+				code -= U_SHIFT;
 				upper = true;
 			}
-			if (code > 96 && code < 123) {
-				code -= 96;
+			if (code > L_RANGE[0] && code < L_RANGE[1]) {
+				code -= L_SHIFT;
 				upper = false;
 			}
 
 			let newCode = code + offset;
-			if (newCode > 26) newCode -= 26;
-			newCode = upper ? newCode += 64 : newCode += 96;
+			if (newCode > ALPHABET) newCode -= ALPHABET;
+			newCode = upper ? newCode += U_SHIFT : newCode += L_SHIFT;
 
 			let newLetter = String.fromCharCode(newCode);
 
