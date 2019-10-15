@@ -85,11 +85,7 @@ function getShiftSize(code) {
 	const U_RANGE = [64, 91]; // ASCII range for uppercase letters
 	const L_RANGE = [96, 123]; // ASCII range for lowercase letters
 
-	if (code > U_RANGE[0] && code < U_RANGE[1]) {
-		return U_SHIFT;
-	} else if (code > L_RANGE[0] && code < L_RANGE[1]) {
-		return L_SHIFT;
-	} else {
-		return 0;
-	}
+	if (code > U_RANGE[0] && code < U_RANGE[1]) return U_SHIFT;
+	else if (code > L_RANGE[0] && code < L_RANGE[1]) return L_SHIFT;
+	else return 0;
 }
