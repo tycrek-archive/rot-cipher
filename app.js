@@ -80,10 +80,11 @@ function shiftCode(original, offset) {
  * @param {Integer} code ASCII code of a letter
  */
 function getShiftSize(code) {
-	const U_SHIFT = 64;
-	const L_SHIFT = 96;
-	const U_RANGE = [64, 91];
-	const L_RANGE = [96, 123];
+	const U_SHIFT = 64; // ASCII 'zero' (before 'A')
+	const L_SHIFT = 96; // ASCII 'grave' (before 'a')
+	const U_RANGE = [64, 91]; // ASCII range for uppercase letters
+	const L_RANGE = [96, 123]; // ASCII range for lowercase letters
+
 	if (code > U_RANGE[0] && code < U_RANGE[1]) {
 		return U_SHIFT;
 	} else if (code > L_RANGE[0] && code < L_RANGE[1]) {
