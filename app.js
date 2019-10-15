@@ -1,0 +1,1 @@
+var prompt = require('prompt');
