@@ -37,8 +37,8 @@ prompt.get(schema, (err, result) => {
 function cipher(word) {
 	const ALPHABET = 26;
 
-	for (let offset = 1; offset <= ALPHABET; offset++) {
-		let temp = [];
+	for (let offset = 0; offset <= ALPHABET; offset++) {
+		let shiftedLetters = [];
 		for (let i = 0; i < word.length; i++) {
 			let code = word.charCodeAt(i);
 			let shift = getShift(code);
@@ -46,9 +46,9 @@ function cipher(word) {
 			if (newCode > ALPHABET) newCode -= ALPHABET;
 			newCode += shift;
 			let newLetter = String.fromCharCode(newCode);
-			temp[i] = newLetter;
+			shiftedLetters[i] = newLetter;
 		}
-		console.log(`${offset}: ${temp.join('')}`);
+		console.log(`${offset}: ${shiftedLetters.join('')}`);
 	}
 }
 
