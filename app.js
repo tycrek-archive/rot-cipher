@@ -27,14 +27,14 @@ const schema = {
 prompt.start();
 prompt.get(schema, (err, result) => {
 	if (err) console.error(colors.red(`\n${err}`));
-	else shift(result.word);
+	else cipher(result.word);
 });
 
 /**
  * Rotation cipher (shift) letters in a string
  * @param {String} word String of letters to shift
  */
-function shift(word) {
+function cipher(word) {
 	const ALPHABET = 26;
 
 	for (let offset = 1; offset <= ALPHABET; offset++) {
