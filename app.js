@@ -35,28 +35,35 @@ prompt.get(schema, (err, result) => {
  * @param {String} word String of letters to shift
  */
 function cipher(word) {
-	const ALPHABET = 26;
 
-	for (let offset = 0; offset <= ALPHABET; offset++) {
+	// Iterate over the whole length of the alphabet
+	for (let offset = 0; offset <= 26; offset++) {
 		let shiftedLetters = [];
+
+		// Iterate through each letter in the original word
 		for (let i = 0; i < word.length; i++) {
-			let code = word.charCodeAt(i);
-			let shift = getShift(code);
-			let newCode = (code - shift) + offset;
-			if (newCode > ALPHABET) newCode -= ALPHABET;
-			newCode += shift;
-			let newLetter = String.fromCharCode(newCode);
-			shiftedLetters[i] = newLetter;
+			let originalcode = word.charCodeAt(i);
+			let shiftedCode = shiftCode(originalcode, offset);
+			let letter = String.fromCharCode(shiftedCode);
+			shiftedLetters[i] = letter;
 		}
 		console.log(`${offset}: ${shiftedLetters.join('')}`);
 	}
+}
+
+function shiftCode(original, offset) {
+	let shift = getShiftSize(original);
+	let newCode = (original - shift) + offset;
+	if (newCode > 26) newCode -= 26;
+	newCode += shift;
+	return newCode;
 }
 
 /**
  * Returns the shift amount for a letter (upper/lower)
  * @param {Integer} code ASCII code of a letter
  */
-function getShift(code) {
+function getShiftSize(code) {
 	const U_SHIFT = 64;
 	const L_SHIFT = 96;
 	const U_RANGE = [64, 91];
