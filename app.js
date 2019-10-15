@@ -51,11 +51,25 @@ function cipher(word) {
 	}
 }
 
+/**
+ * Shift an ASCII code (letters only) and return a new code
+ * @param {Integer} original Original character code
+ * @param {Integer} offset Distance to shift for rotation cipher
+ */
 function shiftCode(original, offset) {
-	let shift = getShiftSize(original);
-	let newCode = (original - shift) + offset;
+	// Changes depending if letter is uppercase or lowercase
+	let shiftSize = getShiftSize(original);
+
+	// Subtract the shiftSize to get a "normal" value between A-Z (1-26)
+	// Then add the offset for the cipher
+	let newCode = (original - shiftSize) + offset;
+
+	// Cycle from Z back to A if required
 	if (newCode > 26) newCode -= 26;
-	newCode += shift;
+
+	// Make our "normal" code back into an ASCII code
+	newCode += shiftSize;
+
 	return newCode;
 }
 
