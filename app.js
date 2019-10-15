@@ -25,13 +25,9 @@ const schema = {
 
 // Prompt the user for a word
 prompt.start();
-
 prompt.get(schema, (err, result) => {
-	if (err) console.error(err);
-	else {
-		let word = result.word;
-		shift(word);
-	}
+	if (err) console.error(colors.red(`\n${err}`));
+	else shift(result.word);
 });
 
 /**
