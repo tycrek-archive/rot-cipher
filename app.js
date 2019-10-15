@@ -1,10 +1,16 @@
-var prompt = require('prompt');
-var colors = require('colors/safe');
+// Rotation cipher (letters only)
 
+// Import modules
+var prompt = require('prompt'); // Accept user input
+var colors = require('colors/safe'); // Fix colors in terminal output
+
+// Remove unnecessary prints
 prompt.message = '';
+
+// Fix delimiter color in terminal
 prompt.delimiter = colors.reset(':');
 
-var schema = {
+// What to accept from user input
 	properties: {
 		word: {
 			description: colors.reset('Enter a word to shift'),
@@ -16,6 +22,7 @@ var schema = {
 	}
 };
 
+// Prompt the user for a word
 prompt.start();
 
 prompt.get(schema, (err, result) => {
@@ -26,6 +33,10 @@ prompt.get(schema, (err, result) => {
 	}
 });
 
+/**
+ * Rotation cipher (shift) letters in a string
+ * @param {String} word String of letters to shift
+ */
 function shift(word) {
 	const ALPHABET = 26;
 
@@ -44,6 +55,10 @@ function shift(word) {
 	}
 }
 
+/**
+ * Returns the shift amount for a letter (upper/lower)
+ * @param {Integer} code ASCII code of a letter
+ */
 function getShift(code) {
 	const U_SHIFT = 64;
 	const L_SHIFT = 96;
