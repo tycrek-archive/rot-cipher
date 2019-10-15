@@ -63,8 +63,9 @@ function getShift(code) {
 	const L_RANGE = [96, 123];
 	if (code > U_RANGE[0] && code < U_RANGE[1]) {
 		return U_SHIFT;
-	}
-	if (code > L_RANGE[0] && code < L_RANGE[1]) {
+	} else if (code > L_RANGE[0] && code < L_RANGE[1]) {
 		return L_SHIFT;
+	} else {
+		return 0;
 	}
 }
