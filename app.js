@@ -3,7 +3,11 @@ var prompt = require('prompt');
 var schema = {
 	properties: {
 		word: {
-			description: 'Enter a word to shift'
+			description: 'Enter a word to shift',
+			type: 'string',
+			pattern: /[a-zA-Z]/g,
+			message: 'Must use letters only (mixed case)',
+			required: true
 		}
 	}
 };
