@@ -47,6 +47,8 @@ function cipher(word) {
 			let letter = String.fromCharCode(shiftedCode);
 			shiftedLetters[i] = letter;
 		}
+
+		// Print our shifted result
 		console.log(`${offset}: ${shiftedLetters.join('')}`);
 	}
 }
