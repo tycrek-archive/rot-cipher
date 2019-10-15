@@ -11,6 +11,7 @@ prompt.message = '';
 prompt.delimiter = colors.reset(':');
 
 // What to accept from user input
+const schema = {
 	properties: {
 		word: {
 			description: colors.reset('Enter a word to shift'),
