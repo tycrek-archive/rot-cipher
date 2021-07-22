@@ -1,12 +1,16 @@
 # rot-cipher
-Rotation cipher in Node.js
+Rotation cipher in Node.js. Shows outputs for all 26 alphabetical rotations.
 
-#### How to run
+## Usage
 
-1. Install [Node.js](https://nodejs.org/)
-2. Run `node app.js` (after running `npm i`)
-3. Enter a word (no spaces, numbers, or symbols)
+```bash
+git clone https://github.com/tycrek/rot-cipher.git && cd rot-cipher/
+npm i
+npm start
+```
 
-#### Limitations
+Enter a word when prompted.
+
+### Limitations
 
 - Spaces, numbers, and symbols won't work
