@@ -1,22 +1,22 @@
 // Rotation cipher (letters only)
 
 // Import modules
-var prompt = require('prompt'); // Accept user input
-var colors = require('colors/safe'); // Fix colors in terminal output
+const prompt = require('prompt');
+const colors = require('colors/safe');
 
 // Remove unnecessary prints
 prompt.message = '';
 
 // Fix delimiter color in terminal
-prompt.delimiter = colors.reset(':');
+prompt.delimiter = colors.cyan(':');
 
 // What to accept from user input
 const schema = {
 	properties: {
 		word: {
-			description: colors.reset('Enter a word to shift'),
+			description: colors.cyan('Enter a word to shift').concat(colors.reset('')),
 			type: 'string',
-			pattern: /[a-zA-Z]/g,
+			pattern: /[a-z]/gi,
 			message: 'Must use letters only (mixed case)',
 			required: true
 		}
@@ -25,42 +25,36 @@ const schema = {
 
 // Prompt the user for a word
 prompt.start();
-prompt.get(schema, (err, result) => {
-	if (err) console.error(colors.red(`\n${err}`));
-	else cipher(result.word);
-});
+prompt.get(schema, (err, result) => (err) ? console.error(colors.red(`\n${err}`)) : cipher(result.word));
 
 /**
  * Rotation cipher (shift) letters in a string
- * @param {String} word String of letters to shift
+ * @param {string} word String of letters to shift
  */
 function cipher(word) {
 
 	// Iterate over the whole length of the alphabet
 	for (let offset = 0; offset <= 26; offset++) {
-		let shiftedLetters = [];
+		const shiftedLetters = [];
 
 		// Iterate through each letter in the original word
-		for (let i = 0; i < word.length; i++) {
-			let originalcode = word.charCodeAt(i);
-			let shiftedCode = shiftCode(originalcode, offset);
-			let letter = String.fromCharCode(shiftedCode);
-			shiftedLetters[i] = letter;
-		}
+		for (let i = 0; i < word.length; i++)
+			shiftedLetters.push(String.fromCharCode(shiftCode(word.charCodeAt(i), offset)));
 
 		// Print our shifted result
-		console.log(`${offset}: ${shiftedLetters.join('')}`);
+		//console.log(`${offset}: ${shiftedLetters.join('')}`);
+		console.log(colors.grey(`${offset < 10 ? ' ' : ''}${offset}: `).concat(colors[offset % 26 === 0 ? 'green' : 'cyan'](shiftedLetters.join(''))));
 	}
 }
 
 /**
  * Shift an ASCII code (letters only) and return a new code
- * @param {Integer} original Original character code
- * @param {Integer} offset Distance to shift for rotation cipher
+ * @param {number} original Original character code
+ * @param {number} offset Distance to shift for rotation cipher
  */
 function shiftCode(original, offset) {
 	// Changes depending if letter is uppercase or lowercase
-	let shiftSize = getShiftSize(original);
+	const shiftSize = getShiftSize(original);
 
 	// Subtract the shiftSize to get a "normal" value between A-Z (1-26)
 	// Then add the offset for the cipher
@@ -77,7 +71,7 @@ function shiftCode(original, offset) {
 
 /**
  * Returns the shift amount for a letter (upper/lower)
- * @param {Integer} code ASCII code of a letter
+ * @param {number} code ASCII code of a letter
  */
 function getShiftSize(code) {
 	const U_SHIFT = 64; // ASCII 'zero' (before 'A')
@@ -85,7 +79,7 @@ function getShiftSize(code) {
 	const U_RANGE = [64, 91]; // ASCII range for uppercase letters
 	const L_RANGE = [96, 123]; // ASCII range for lowercase letters
 
-	if (code > U_RANGE[0] && code < U_RANGE[1]) return U_SHIFT;
-	else if (code > L_RANGE[0] && code < L_RANGE[1]) return L_SHIFT;
-	else return 0;
+	return (code > U_RANGE[0] && code < U_RANGE[1]) ? U_SHIFT
+		: (code > L_RANGE[0] && code < L_RANGE[1]) ? L_SHIFT
+			: 0;
 }
